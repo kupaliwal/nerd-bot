@@ -20,7 +20,7 @@ async def on_ready():
 async def on_message(message):
     if "nerd" in message.content.lower():
         await message.add_reaction(nerd_emoji)
-    if message.author.id == eepy_id:
+    if any(role.id == eepy_id for role in message.author.roles):
         await message.add_reaction(mreow)
 
         
