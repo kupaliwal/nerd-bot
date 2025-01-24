@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
+import random as ran
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.typing = True
-
+gatochance = 1/3
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 nerd_emoji = "<:NERD:1049039290916671559>"
 mreow = "<:dreamed:942958886036602880>"
+randomemoji = "<:heavyglaive:1070699019346653184>"
 eepy_id = 1049449742905638952
 
 @bot.event
@@ -18,10 +20,18 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    if message.author == bot.user:
+        return
     if "nerd" in message.content.lower():
         await message.add_reaction(nerd_emoji)
     if any(role.id == eepy_id for role in message.author.roles):
-        await message.add_reaction(mreow)
+        if ran.random() < gatochance:
+            await message.add_reaction(mreow)
+    
+    chance_to_reply = (1/100)   
+
+    if ran.random() < chance_to_reply:
+        await message.add_reaction(randomemoji)
 
         
 bot.run("TOKEN")
